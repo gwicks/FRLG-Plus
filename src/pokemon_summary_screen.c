@@ -1216,6 +1216,7 @@ static void Task_InputHandler_Info(u8 taskId)
                     }
                     BufferMonSkills();
                     PokeSum_PrintRightPaneText();
+                    CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], 2);
                 }
                 return;
             }
