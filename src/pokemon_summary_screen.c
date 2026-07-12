@@ -2546,7 +2546,7 @@ static void BufferMonMoveI(u32 i)
                 power = 100;
             break;
         }
-        case MOVE_NATURE_POWER:\\
+        case MOVE_NATURE_POWER:
         {
             if (gMain.inBattle)
                 terrainType = gBattleTerrain;
