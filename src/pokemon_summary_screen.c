@@ -1214,6 +1214,8 @@ static void Task_InputHandler_Info(u8 taskId)
                         PlaySE(SE_SELECT);
                         sMonSummaryScreen->summary.currStatDisplay = 0;
                     }
+                    BufferMonSkills();
+                    PokeSum_PrintRightPaneText();
                 }
                 return;
             }
