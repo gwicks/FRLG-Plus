@@ -1206,15 +1206,13 @@ static void Task_InputHandler_Info(u8 taskId)
                 else if (sMonSummaryScreen->curPageIndex == PSS_PAGE_SKILLS)
                 {
                     if (sMonSummaryScreen->summary.currStatDisplay == 0) {
-                        PlaySE(SE_DOOR);
                         sMonSummaryScreen->summary.currStatDisplay++;
                     } else if (sMonSummaryScreen->summary.currStatDisplay == 1) {
-                        PlaySE(SE_SHOP);
                         sMonSummaryScreen->summary.currStatDisplay++;
                     } else {
-                        PlaySE(SE_SELECT);
                         sMonSummaryScreen->summary.currStatDisplay = 0;
                     }
+                    PlaySE(SE_SELECT);
                     BufferMonSkills();
                     PokeSum_PrintRightPaneText();
                     CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], 2);
