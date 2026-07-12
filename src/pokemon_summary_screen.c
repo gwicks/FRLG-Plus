@@ -74,6 +74,7 @@ static void PokeSum_PrintAbilityDataOrMoveTypes(void);
 static void PokeSum_PrintMonTypeIcons(void);
 static void PokeSum_PrintPageName(const u8 * str);
 static void PokeSum_PrintControlsString(const u8 * str);
+static void PokeSum_PrintStatModeLabel(void);
 static void PrintMonLevelNickOnWindow2(const u8 * str);
 static void PokeSum_UpdateBgPriorityForPageFlip(u8 setBg0Priority, u8 keepBg1Bg2PriorityOrder);
 static void ShowOrHideHpBarObjs(u8 invisible);
@@ -1217,6 +1218,8 @@ static void Task_InputHandler_Info(u8 taskId)
                     BufferMonSkills();
                     PokeSum_PrintRightPaneText();
                     CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], 2);
+                    PokeSum_PrintStatModeLabel();
+                    CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_CONTROLS], 2);
                 }
                 return;
             }
@@ -2714,6 +2717,24 @@ static void PokeSum_PrintControlsString(const u8 * str)
     PutWindowTilemap(sMonSummaryScreen->windowIds[POKESUM_WIN_CONTROLS]);
 }
 
+// Folds which stat value is currently displayed (Regular/IV/EV) into the
+// same controls hint line used for the dpad/page-flip hint on the Skills page.
+static void PokeSum_PrintStatModeLabel(void)
+{
+    switch (sMonSummaryScreen->summary.currStatDisplay)
+    {
+    case 1:
+        PokeSum_PrintControlsString(gText_PokeSum_Controls_Page_IV);
+        break;
+    case 2:
+        PokeSum_PrintControlsString(gText_PokeSum_Controls_Page_EV);
+        break;
+    default:
+        PokeSum_PrintControlsString(gText_PokeSum_Controls_Page_Regular);
+        break;
+    }
+}
+
 static void PrintMonLevelNickOnWindow2(const u8 * str)
 {
     FillWindowPixelBuffer(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], 0);
@@ -3296,7 +3317,7 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex)
         break;
     case PSS_PAGE_SKILLS:
         PokeSum_PrintPageName(gText_PokeSum_PageName_PokemonSkills);
-        PokeSum_PrintControlsString(gText_PokeSum_Controls_Page);
+        PokeSum_PrintStatModeLabel();
         PrintMonLevelNickOnWindow2(gText_PokeSum_NoData);
         break;
     case PSS_PAGE_MOVES:
